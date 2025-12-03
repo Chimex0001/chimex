@@ -1,0 +1,72 @@
+/* File: styles.css (shared styles) */
+:root{
+  --primary:#8b1e1e; --accent:#1f6d3d; --gold:#d4a017; --bg:#f8f5f2; --text:#222;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,Segoe UI,Arial;color:var(--text);background:var(--bg)}
+header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:var(--primary);color:#fff}
+nav a{color:#fff;text-decoration:none;margin:0 10px;font-weight:600}
+.btn{display:inline-block;padding:10px 14px;border-radius:6px;text-decoration:none;font-weight:700}
+.btn.primary{background:var(--accent);color:#fff}
+.btn.light{background:#fff;color:var(--primary)}
+.section{padding:26px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+/* Product grid items */
+.products-grid{align-items:start}
+.product-item{background:#fff;border-radius:8px;padding:10px;display:flex;flex-direction:column;align-items:center;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,0.06);color:var(--text)}
+.product-item img{width:100%;max-width:200px;height:140px;object-fit:cover;border-radius:6px;margin-bottom:8px}
+.product-title{font-size:16px;color:var(--text)}
+.product-sub{font-size:13px;color:#666;margin-top:4px}
+
+@media (max-width:480px){
+  .product-item img{height:110px}
+}
+
+/* Gallery styles for multi-image products */
+.gallery{width:100%;display:flex;flex-direction:column;align-items:center}
+.gallery-main{width:100%;max-width:260px;height:160px;object-fit:cover;border-radius:6px;border:1px solid #eee}
+.thumbs{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.thumbs img{width:52px;height:48px;object-fit:cover;border-radius:4px;cursor:pointer;border:1px solid rgba(0,0,0,0.06)}
+.gallery-controls{margin-top:8px;display:flex;gap:8px;align-items:center}
+.gallery-input{display:inline-block}
+.clear-gallery{background:#f5f5f5}
+
+/* Bakery page hero background */
+.section.hero{
+  background-image: url("images/Bakery backgorung page.png");
+  background-size: cover;
+  background-position: center center;
+  color: #fff;
+  min-height: 60vh;
+  padding: 60px 26px;
+  position: relative;
+}
+.section.hero::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 0;
+}
+.section.hero > *{position:relative;z-index:1}
+.section.hero .btn.primary{background:rgba(255,255,255,0.95);color:var(--primary)}
+
+/* Food Export hero background */
+.section.hero-export{
+  background-image: url("images/foodexportbacgroud.png");
+  background-size: cover;
+  background-position: center center;
+  color: #fff;
+  min-height: 60vh;
+  padding: 60px 26px;
+  position: relative;
+}
+.section.hero-export::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.32), rgba(0,0,0,0.45));
+  z-index: 0;
+}
+.section.hero-export > *{position:relative;z-index:1}
+.section.hero-export .btn.primary{background:rgba(255,255,255,0.95);color:var(--primary)}

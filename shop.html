@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chimex Catering Services — Shop & Services</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{
+      --primary:#8b1e1e; --accent:#1f6d3d; --gold:#d4a017; --bg:#f8f5f2; --text:#222;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,Segoe UI,Arial;color:var(--text);background:var(--bg)}
+    header{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:14px 20px;background:var(--primary);color:#fff;position:sticky;top:0;z-index:20}
+    header .brand{font-weight:800}
+    header nav a{color:#fff;text-decoration:none;margin:0 8px;font-weight:600}
+    .btn{display:inline-block;padding:8px 12px;border-radius:8px;text-decoration:none;font-weight:700;border:none;cursor:pointer}
+    .btn.primary{background:var(--accent);color:#fff}
+    .btn.light{background:#fff;color:var(--primary)}
+    .container{max-width:1100px;margin:0 auto;padding:20px}
+    .hero{display:grid;grid-template-columns:1.1fr 0.9fr;gap:20px;background:#fff;padding:20px;border-radius:12px}
+    .hero img{width:100%;border-radius:12px;object-fit:cover}
+    .section{margin-top:24px}
+    h2{margin:8px 0 12px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+    .card{background:#fff;border:1px solid #eee;border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+    .card img{width:100%;height:160px;object-fit:cover}
+    .card .body{padding:12px;display:flex;flex-direction:column;gap:8px}
+    .price{font-weight:800;color:#1f6d3d}
+    .badge{display:inline-block;background:#ffd24d;color:#663300;padding:4px 8px;border-radius:12px;font-size:.8rem;margin-right:6px}
+    .catalog-actions{display:flex;gap:6px;align-items:center;justify-content:space-between}
+    .qty{display:flex;align-items:center;gap:6px}
+    .qty input{width:56px;padding:6px;border:1px solid #ccc;border-radius:6px}
+    /* Cart drawer */
+    .cart-toggle{position:relative}
+    .cart-count{position:absolute;top:-8px;right:-8px;background:#ffd24d;color:#222;border-radius:999px;font-size:.75rem;padding:2px 6px;font-weight:800}
+    .cart{position:fixed;right:0;top:0;height:100vh;width:360px;max-width:85vw;background:#fff;border-left:2px solid #eee;box-shadow:-6px 0 12px rgba(0,0,0,.08);transform:translateX(100%);transition:.25s;z-index:30;display:flex;flex-direction:column}
+    .cart.open{transform:translateX(0)}
+    .cart header{background:#fff;color:#222;border-bottom:1px solid #eee;position:static}
+    .cart .items{flex:1;overflow:auto;padding:12px}
+    .cart .item{display:grid;grid-template-columns:56px 1fr auto;gap:10px;align-items:center;border-bottom:1px solid #f0f0f0;padding:8px 0}
+    .cart .item img{width:56px;height:56px;object-fit:cover;border-radius:8px}
+    .cart .item .title{font-weight:700}
+    .cart .item .controls{display:flex;gap:6px;align-items:center}
+    .cart .footer{border-top:1px solid #eee;padding:12px}
+    .total{display:flex;justify-content:space-between;font-weight:800;margin:8px 0}
+    .checkout form{display:grid;gap:10px}
+    input,select,textarea{padding:8px;border:1px solid #ccc;border-radius:6px}
+    .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;background:#111;color:#fff;padding:10px 14px;border-radius:8px;font-size:.9rem;display:none;z-index:40}
+    .toast.show{display:block}
+    /* Greeting bar */
+    .greet{background:#fff;border:1px solid #eee;border-radius:12px;padding:12px;margin-top:16px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+    .greet small{color:#555}
+    @media (max-width:720px){
+      .hero{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="brand">Chimex Catering Services</div>
+  <nav>
+    <a href="#products">Products</a>
+    <a href="#services">Services</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="cart-toggle">
+    <button id="openCart" class="btn light">Cart</button>
+    <span id="cartCount" class="cart-count">0</span>
+  </div>
+</header>
+
+<div class="container">
+  <section class="hero">
+    <div>
+      <h1>Where tradition meets taste, quality & innovation</h1>
+      <p>Shop Nigerian staples, book catering, and order fresh pastries. Export-ready packs ship worldwide.</p>
+      <div class="greet">
+        <div>
+          <strong id="greetText">Welcome!</strong>
+          <div><small>We remember your name on return visits.</small></div>
+        </div>
+        <div style="display:flex;gap:6px;align-items:center">
+          <input id="nameInput" type="text" placeholder="Enter your name" />
+          <button id="saveName" class="btn primary">Save</button>
+        </div>
+      </div>
+      <div style="margin-top:10px">
+        <span class="badge">International Shipping</span>
+        <span class="badge">Wholesale & Retail</span>
+        <span class="badge">Leak‑Proof Packed</span>
+      </div>
+    </div>
+    <img src="images/hero-banner.jpg" alt="Catering, export packs and pastries">
+  </section>
+
+  <section class="section" id="products">
+    <h2>Shop products</h2>
+    <div id="productGrid" class="grid"></div>
+  </section>
+
+  <section class="section" id="services">
+    <h2>Book services</h2>
+    <div id="serviceGrid" class="grid"></div>
+  </section>
+
+  <section class="section" id="contact">
+    <h2>Contact & order</h2>
+    <p>WhatsApp: <a href="https://wa.me/2348146260969" target="_blank">+234 814 626 0969</a> • Ikeja, Lagos</p>
+  </section>
+</div>
+
+<!-- Cart drawer -->
+<aside id="cartDrawer" class="cart" aria-label="Shopping cart">
+  <header>
+    <div style="display:flex;justify-content:space-between;align-items:center;width:100%">
+      <strong style="font-size:1.1rem">Your cart</strong>
+      <button id="closeCart" class="btn light">Close</button>
+    </div>
+  </header>
+  <div id="cartItems" class="items"></div>
+  <div class="footer">
+    <div class="total"><span>Subtotal</span><span id="cartSubtotal">₦0</span></div>
+    <div class="checkout">
+      <form id="checkoutForm">
+        <input id="coName" type="text" placeholder="Full name" required />
+        <input id="coPhone" type="tel" placeholder="Phone / WhatsApp" required />
+        <input id="coAddress" type="text" placeholder="Delivery address" required />
+        <select id="coMethod" required>
+          <option value="">Delivery method</option>
+          <option>Pickup (Ikeja)</option>
+          <option>Courier (Lagos)</option>
+          <option>International shipping</option>
+        </select>
+        <button class="btn primary" type="submit">Place order (mock)</button>
+      </form>
+      <small>Note: This demo stores your cart in your browser. Connect to a payment gateway later.</small>
+    </div>
+  </div>
+</aside>
+
+<div id="toast" class="toast">Added to cart</div>
+
+<script>
+/* ---- Catalog data (edit this) ---- */
+const PRODUCTS = [
+  {id:'garri-ijebu', type:'product', name:'Garri (Ijebu)', price: 2500, img:'images/garri.jpg'},
+  {id:'garri-yellow', type:'product', name:'Garri (Yellow)', price: 2300, img:'images/garri-yellow.jpg'},
+  {id:'egusi', type:'product', name:'Melon (Egusi)', price: 4500, img:'images/egusi.jpg'},
+  {id:'ogbono', type:'product', name:'Ogbono', price: 5200, img:'images/ogbono.jpg'},
+  {id:'crayfish', type:'product', name:'Crayfish', price: 3800, img:'images/crayfish.jpg'},
+  {id:'stockfish', type:'product', name:'Stockfish', price: 12000, img:'images/stockfish.jpg'},
+  {id:'dried-goat', type:'product', name:'Dried Goat Meat', price: 15000, img:'images/dried-goat.jpg'},
+  {id:'smoked-catfish', type:'product', name:'Smoked Catfish', price: 9000, img:'images/smoked-catfish.jpg'},
+  {id:'palm-oil', type:'product', name:'Palm Oil (Leak‑Proof)', price: 6000, img:'images/palm-oil.jpg'},
+  {id:'yam-flour', type:'product', name:'Yam Flour', price: 5000, img:'images/yam-flour.jpg'},
+  {id:'plantain-flour', type:'product', name:'Plantain Flour', price: 5200, img:'images/plantain-flour.jpg'},
+  {id:'cassava-flour', type:'product', name:'Cassava Flour', price: 4400, img:'images/cassava-flour.jpg'},
+  {id:'pepper-mix', type:'product', name:'Pepper Mix & Seasonings', price: 3000, img:'images/pepper-mix.jpg'},
+  {id:'honey-beans', type:'product', name:'Beans (Oloyin, Honey Beans)', price: 4800, img:'images/honey-beans.jpg'},
+];
+
+const SERVICES = [
+  {id:'event-catering', type:'service', name:'Event Catering (Weddings/Birthdays/Corporate)', price: 150000, img:'images/catering.jpg'},
+  {id:'private-chef', type:'service', name:'Private Chef (Per Day)', price: 85000, img:'images/private-chef.jpg'},
+  {id:'weekly-meal', type:'service', name:'Weekly Meal Prep & Delivery', price: 55000, img:'images/meal-prep.jpg'},
+  {id:'small-chops', type:'service', name:'Small Chops & Finger Foods (Tray)', price: 30000, img:'images/small-chops.jpg'},
+  {id:'buffet-setup', type:'service', name:'Buffet Setup & Decoration', price: 75000, img:'images/buffet.jpg'},
+  {id:'diaspora-box', type:'service', name:'Diaspora Family Food Box (Export)', price: 120000, img:'images/diaspora-box.jpg'},
+  {id:'subscription-box', type:'service', name:'Monthly Subscription Box', price: 90000, img:'images/subscription-box.jpg'},
+  {id:'intl-shipping', type:'service', name:'International Shipping (Handling Fee)', price: 25000, img:'images/shipping.jpg'},
+];
+
+/* ---- Utilities ---- */
+const naira = (n)=> '₦' + n.toLocaleString('en-NG');
+const toast = (msg)=>{
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.classList.add('show');
+  setTimeout(()=> el.classList.remove('show'), 1500);
+};
+
+/* ---- Render catalog ---- */
+function renderCard(item){
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = `
+    <img src="${item.img}" alt="${item.name}">
+    <div class="body">
+      <div><strong>${item.name}</strong></div>
+      <div class="price">${naira(item.price)}</div>
+      <div class="catalog-actions">
+        <div class="qty">
+          <label for="qty-${item.id}" style="font-size:.85rem;color:#666">Qty</label>
+          <input id="qty-${item.id}" type="number" min="1" step="1" value="1">
+        </div>
+        <button class="btn primary" data-id="${item.id}">Add to cart</button>
+      </div>
+    </div>
+  `;
+  const btn = card.querySelector('button');
+  btn.addEventListener('click', ()=>{
+    const qtyInput = card.querySelector(`#qty-${item.id}`);
+    const qty = Math.max(1, parseInt(qtyInput.value||'1',10));
+    addToCart(item, qty);
+    toast('Added to cart');
+  });
+  return card;
+}
+
+function mountCatalog(){
+  const pg = document.getElementById('productGrid');
+  const sg = document.getElementById('serviceGrid');
+  PRODUCTS.forEach(p=> pg.appendChild(renderCard(p)));
+  SERVICES.forEach(s=> sg.appendChild(renderCard(s)));
+}
+
+/* ---- Cart state (localStorage) ---- */
+const CART_KEY = 'chimex.cart.v1';
+function getCart(){ return JSON.parse(localStorage.getItem(CART_KEY)||'[]'); }
+function setCart(items){
+  localStorage.setItem(CART_KEY, JSON.stringify(items));
+  updateCartCount();
+  renderCart();
+}
+
+function addToCart(item, qty){
+  const cart = getCart();
+  const idx = cart.findIndex(x=> x.id===item.id);
+  if(idx>=0) cart[idx].qty += qty;
+  else cart.push({id:item.id, name:item.name, price:item.price, img:item.img, qty});
+  setCart(cart);
+}
+
+function updateQty(id, delta){
+  const cart = getCart();
+  const idx = cart.findIndex(x=> x.id===id);
+  if(idx>=0){
+    cart[idx].qty += delta;
+    if(cart[idx].qty <= 0) cart.splice(idx,1);
+    setCart(cart);
+  }
+}
+
+function removeItem(id){
+  const cart = getCart().filter(x=> x.id!==id);
+  setCart(cart);
+}
+
+function cartSubtotal(){
+  return getCart().reduce((sum,x)=> sum + x.price * x.qty, 0);
+}
+
+function updateCartCount(){
+  document.getElementById('cartCount').textContent = getCart().reduce((sum,x)=> sum + x.qty, 0);
+}
+
+/* ---- Cart UI ---- */
+function renderCart(){
+  const itemsEl = document.getElementById('cartItems');
+  itemsEl.innerHTML = '';
+  const cart = getCart();
+  if(cart.length===0){
+    itemsEl.innerHTML = '<p>Your cart is empty.</p>';
+  }else{
+    cart.forEach(ci=>{
+      const row = document.createElement('div');
+      row.className = 'item';
+      row.innerHTML = `
+        <img src="${ci.img}" alt="${ci.name}">
+        <div>
+          <div class="title">${ci.name}</div>
+          <div style="color:#1f6d3d">${naira(ci.price)} × ${ci.qty} = <strong>${naira(ci.price*ci.qty)}</strong></div>
+        </div>
+        <div class="controls">
+          <button class="btn light" aria-label="Decrease">−</button>
+          <button class="btn light" aria-label="Increase">+</button>
+          <button class="btn" style="background:#eee;color:#333" aria-label="Remove">✕</button>
+        </div>
+      `;
+      const [decBtn, incBtn, rmBtn] = row.querySelectorAll('.controls .btn');
+      decBtn.addEventListener('click', ()=> updateQty(ci.id, -1));
+      incBtn.addEventListener('click', ()=> updateQty(ci.id, +1));
+      rmBtn.addEventListener('click', ()=> removeItem(ci.id));
+      itemsEl.appendChild(row);
+    });
+  }
+  document.getElementById('cartSubtotal').textContent = naira(cartSubtotal());
+}
+
+/* ---- Drawer controls ---- */
+const drawer = document.getElementById('cartDrawer');
+document.getElementById('openCart').addEventListener('click', ()=> drawer.classList.add('open'));
+document.getElementById('closeCart').addEventListener('click', ()=> drawer.classList.remove('open'));
+
+/* ---- Checkout (mock) ---- */
+document.getElementById('checkoutForm').addEventListener('submit', (e)=>{
+  e.preventDefault();
+  if(getCart().length===0){ toast('Cart is empty'); return; }
+  const order = {
+    name: document.getElementById('coName').value.trim(),
+    phone: document.getElementById('coPhone').value.trim(),
+    address: document.getElementById('coAddress').value.trim(),
+    method: document.getElementById('coMethod').value,
+    items: getCart(),
+    subtotal: cartSubtotal(),
+    time: new Date().toISOString()
+  };
+  console.log('Order (mock):', order);
+  toast('Order placed (mock). We will contact you!');
+  setCart([]); // clear cart
+  drawer.classList.remove('open');
+});
+
+/* ---- Remember user name ---- */
+const NAME_KEY = 'chimex.user.name';
+function setName(name){
+  localStorage.setItem(NAME_KEY, name);
+  document.getElementById('greetText').textContent = `Welcome, ${name}!`;
+  document.getElementById('coName').value = name;
+}
+function initName(){
+  const saved = localStorage.getItem(NAME_KEY);
+  if(saved){
+    document.getElementById('greetText').textContent = `Welcome back, ${saved}!`;
+    document.getElementById('coName').value = saved;
+  }
+  document.getElementById('saveName').addEventListener('click', ()=>{
+    const val = document.getElementById('nameInput').value.trim();
+    if(val){ setName(val); toast('Name saved'); }
+  });
+}
+
+/* ---- Boot ---- */
+mountCatalog();
+updateCartCount();
+renderCart();
+initName();
+</script>
+</body>
+</html>

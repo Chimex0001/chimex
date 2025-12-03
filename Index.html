@@ -1,0 +1,115 @@
+<!-- File: index.html (Home) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chimex Catering Services — Tradition, Taste, Quality & Innovation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{
+      --primary:#8b1e1e; --accent:#1f6d3d; --gold:#d4a017; --bg:#f8f5f2; --text:#222;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,Segoe UI,Arial;color:var(--text);background:var(--bg)}
+    header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:var(--primary);color:#fff;position:sticky;top:0;z-index:10}
+    nav a{color:#fff;text-decoration:none;margin:0 10px;font-weight:600}
+    .btn{display:inline-block;padding:10px 14px;border-radius:6px;text-decoration:none;font-weight:700}
+    .btn.primary{background:var(--accent);color:#fff}
+    .btn.light{background:#fff;color:var(--primary)}
+    .hero{display:grid;grid-template-columns:1.1fr 0.9fr;gap:24px;padding:30px;background:#fff}
+    .hero h1{margin:0 0 10px}
+    .hero img{width:100%;height:100%;object-fit:cover;border-radius:10px}
+    .section{padding:26px}
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+    .card{background:#fff;border:1px solid #eee;border-radius:10px;padding:16px}
+    .why{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+    .pill{background:#fff;border:1px solid #ddd;border-radius:999px;padding:10px 14px;text-align:center;font-weight:600}
+    .testimonials{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+    .quote{background:#fff;border:1px solid #eee;border-radius:10px;padding:16px;font-style:italic}
+    footer{background:#111;color:#ccc;padding:20px;text-align:center}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+  </style>
+</head>
+<body>
+
+<header>
+  <div><strong>Chimex Catering Services</strong></div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="catering.html">Catering</a>
+    <a href="food-export.html">Food Export</a>
+    <a href="bakery.html">Bakery</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div>
+    <h1>Where tradition meets taste, quality & innovation</h1>
+    <p>Serving authentic African flavors with modern professionalism — from event catering, to export-ready food packs, to freshly baked pastries.</p>
+    <div style="margin-top:10px">
+      <a class="btn primary" href="catering.html">Catering</a>
+      <a class="btn light" href="food-export.html">Food Export</a>
+      <a class="btn light" href="bakery.html">Bakery</a>
+    </div>
+  </div>
+  <img src="images/homepage.png" alt="Catering dishes, export packs, and fresh pastries neatly displayed">
+</section>
+
+<section class="section" id="about">
+  <h2>About us</h2>
+  <p>Chimex started at home — in the warmth of our mother’s kitchen. That passion grew into formal training at culinary school, where we refined our craft and built a professional standard around flavor, hygiene, and reliable service. Today, we bring that heritage to every plate, package, and pastry.</p>
+</section>
+
+<section class="section" id="divisions">
+  <h2>Our divisions</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Catering — Professional food services</h3>
+      <p>Full-service event meals, private chef experiences, buffet setup, small chops, and weekly meal prep.</p>
+      <a class="btn primary" href="catering.html">Explore Catering</a>
+    </div>
+    <div class="card">
+      <h3>Food export — Premium dried foods for diaspora</h3>
+      <p>Hygienically processed Nigerian staples, leak‑proof packed for international shipping and wholesale supply.</p>
+      <a class="btn primary" href="food-export.html">Explore Food Export</a>
+    </div>
+    <div class="card">
+      <h3>Bakery — Freshly baked snacks & pastries</h3>
+      <p>From meat pies to Agege bread, cupcakes, cookies, and event pastry trays — baked fresh daily.</p>
+      <a class="btn primary" href="bakery.html">Explore Bakery</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="why">
+  <h2>Why choose us</h2>
+  <div class="why">
+    <div class="pill">Quality</div>
+    <div class="pill">Hygiene</div>
+    <div class="pill">Afro‑inspired taste</div>
+    <div class="pill">Reliable delivery</div>
+  </div>
+</section>
+
+<section class="section" id="testimonials">
+  <h2>Testimonials</h2>
+  <div class="testimonials">
+    <div class="quote">“They delivered a flawless wedding buffet. Everyone kept asking for seconds!” — Ada, Lagos</div>
+    <div class="quote">“Our diaspora box arrived leak‑proof and fresh. True taste of home.” — Chinedu, UK</div>
+    <div class="quote">“Best meat pies in Ikeja. Soft, flavorful, and consistent.” — Amina, Ikeja</div>
+  </div>
+</section>
+
+<section class="section" id="contact-cta">
+  <h2>Contact / Order now</h2>
+  <p>Chat with us on WhatsApp, place a custom order, or request a quote for events and exports.</p>
+  <a class="btn primary" href="contact.html">Open Contact Page</a>
+</section>
+
+<footer>
+  © 2025 Chimex Catering Services • Ikeja, Lagos • Tradition • Taste • Quality • Innovation
+</footer>
+
+</body>
+</html>
