@@ -112,28 +112,29 @@
     </li>
     <li class="product-item" data-product="palm-oil">
       <div class="gallery">
-        <img class="gallery-main" src="images/palm-oil.svg" alt="Palm oil">
-        <div class="thumbs"></div>
+        <img class="gallery-main" src="images/palmoil1.webp" alt="Palm oil">
+        <div class="thumbs">
+          <img src="images/palmoil1.webp" alt="palmoil1" onclick="this.closest('.gallery').querySelector('.gallery-main').src=this.src">
+          <img src="images/palmoil2.webp" alt="palmoil2" onclick="this.closest('.gallery').querySelector('.gallery-main').src=this.src">
+          <img src="images/palmoil3.webp" alt="palmoil3" onclick="this.closest('.gallery').querySelector('.gallery-main').src=this.src">
+        </div>
       </div>
       <div class="product-title"><strong>Palm oil</strong><div class="product-sub">Leak‑proof packed</div></div>
       <div class="gallery-controls"><input type="file" accept="image/*" multiple class="gallery-input" /><button class="btn clear-gallery">Clear</button></div>
     </li>
     <li class="product-item" data-product="smoked-catfish">
       <div class="gallery">
-        <img class="gallery-main" src="images/smoked-catfish.svg" alt="Smoked catfish">
-        <div class="thumbs"></div>
+        <img class="gallery-main" src="images/smokedcatfish.jpg" alt="Smoked catfish">
+        <div class="thumbs">
+          <img src="images/smokedcatfish.jpg" alt="cartfish" onclick="this.closest('.gallery').querySelector('.gallery-main').src=this.src">
+          <img src="images/smokedcatfish1.jpeg" alt="catfish1" onclick="this.closest('.gallery').querySelector('.gallery-main').src=this.src">
+          <img src="images/smokedcatfish2.avif" alt="catfish2" onclick="this.closest('.gallery').querySelector('.gallery-main').src=this.src">
+        </div>
       </div>
       <div class="product-title"><strong>Smoked catfish</strong><div class="product-sub">Vacuum sealed</div></div>
       <div class="gallery-controls"><input type="file" accept="image/*" multiple class="gallery-input" /><button class="btn clear-gallery">Clear</button></div>
     </li>
-    <li class="product-item" data-product="flours">
-      <div class="gallery">
-        <img class="gallery-main" src="images/flours.svg" alt="Yam, plantain & cassava flour">
-        <div class="thumbs"></div>
-      </div>
-      <div class="product-title"><strong>Yam, plantain & cassava flour</strong><div class="product-sub">For amala & fufu</div></div>
-      <div class="gallery-controls"><input type="file" accept="image/*" multiple class="gallery-input" /><button class="btn clear-gallery">Clear</button></div>
-    </li>
+    <!-- Yam, plantain & cassava flour removed per request -->
     <li class="product-item" data-product="pepper-mix">
       <div class="gallery">
         <img class="gallery-main" src="images/pepper-mix.svg" alt="Pepper mix & blended seasonings">
