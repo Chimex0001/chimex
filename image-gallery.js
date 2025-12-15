@@ -20,17 +20,23 @@
     const main = li.querySelector('.gallery-main');
     thumbs.innerHTML = '';
     if(!images || images.length===0) return;
+    
+    // Use DocumentFragment for batch DOM insertion
+    const fragment = document.createDocumentFragment();
     images.forEach((src, i)=>{
       const t = document.createElement('img');
       t.src = src; t.dataset.index = i;
       t.alt = '';
       t.addEventListener('click', ()=> main.src = src);
-      thumbs.appendChild(t);
+      fragment.appendChild(t);
     });
+    thumbs.appendChild(fragment);
   }
 
   function loadAll(){
-    document.querySelectorAll('.product-item[data-product]').forEach(li=>{
+    // Cache DOM query
+    const items = document.querySelectorAll('.product-item[data-product]');
+    items.forEach(li=>{
       const id = li.dataset.product;
       const stored = readStorage(id);
       const main = li.querySelector('.gallery-main');
@@ -48,31 +54,55 @@
     if(!files || files.length===0) return;
     const arr = [];
     let loaded = 0;
-    for(let i=0;i<files.length;i++){
-      const f = files[i];
-      if(!f.type.startsWith('image/')){ loaded++; continue }
+    let imageCount = 0;
+    const totalFiles = files.length;
+    
+    // Pre-read existing data to avoid reading it multiple times
+    const existing = readStorage(id) || [];
+    const mainImg = li.querySelector('.gallery-main');
+    
+    // Use Array.from for better performance with FileList
+    Array.from(files).forEach(f => {
+      if(!f.type.startsWith('image/')){ 
+        loaded++; 
+        checkCompletion();
+        return;
+      }
+      imageCount++;
       const reader = new FileReader();
       reader.onload = function(e){
         arr.push(e.target.result);
         loaded++;
-        if(loaded === files.length){
-          // combine with existing
-          const existing = readStorage(id) || [];
-          const combined = existing.concat(arr);
-          writeStorage(id, combined);
-          renderThumbs(li, combined);
-          li.querySelector('.gallery-main').src = combined[0] || li.querySelector('.gallery-main').src;
-        }
+        checkCompletion();
       };
       reader.readAsDataURL(f);
+    });
+    
+    function checkCompletion(){
+      if(loaded === totalFiles){
+        finishLoading();
+      }
+    }
+    
+    function finishLoading(){
+      if(arr.length === 0) return; // No valid images processed
+      const combined = existing.concat(arr);
+      writeStorage(id, combined);
+      renderThumbs(li, combined);
+      mainImg.src = combined[0] || mainImg.src;
     }
   }
 
   function setup(){
-    document.querySelectorAll('.product-item[data-product]').forEach(li=>{
+    // Cache DOM query
+    const items = document.querySelectorAll('.product-item[data-product]');
+    items.forEach(li=>{
       const id = li.dataset.product;
       const input = li.querySelector('.gallery-input');
       const clearBtn = li.querySelector('.clear-gallery');
+      const mainImg = li.querySelector('.gallery-main');
+      const thumbsEl = li.querySelector('.thumbs');
+      
       if(input){
         input.addEventListener('change', (e)=>{
           handleFiles(e.target.files, li, id);
@@ -84,9 +114,9 @@
         clearBtn.addEventListener('click', ()=>{
           localStorage.removeItem(KEY_PREFIX + id);
           // reset to original default image (from initial HTML)
-          const defaultSrc = li.querySelector('.gallery-main').getAttribute('src');
-          li.querySelector('.gallery-main').src = defaultSrc;
-          li.querySelector('.thumbs').innerHTML = '';
+          const defaultSrc = mainImg.getAttribute('src');
+          mainImg.src = defaultSrc;
+          thumbsEl.innerHTML = '';
         });
       }
     });

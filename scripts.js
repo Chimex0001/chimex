@@ -8,7 +8,9 @@
   }
 
   function loadSavedImages(){
-    document.querySelectorAll('.product-item[data-product]').forEach(li => {
+    // Cache DOM query
+    const items = document.querySelectorAll('.product-item[data-product]');
+    items.forEach(li => {
       const id = li.dataset.product;
       const key = STORAGE_PREFIX + id;
       const saved = localStorage.getItem(key);
@@ -45,7 +47,9 @@
   }
 
   function setupControls(){
-    document.querySelectorAll('.product-item[data-product]').forEach(li => {
+    // Cache DOM query
+    const items = document.querySelectorAll('.product-item[data-product]');
+    items.forEach(li => {
       const id = li.dataset.product;
       const input = li.querySelector('.img-uploader');
       const changeBtn = li.querySelector('.change-btn');
