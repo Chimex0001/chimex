@@ -54,6 +54,7 @@
     if(!files || files.length===0) return;
     const arr = [];
     let loaded = 0;
+    let imageCount = 0;
     const totalFiles = files.length;
     
     // Pre-read existing data to avoid reading it multiple times
@@ -64,21 +65,27 @@
     Array.from(files).forEach(f => {
       if(!f.type.startsWith('image/')){ 
         loaded++; 
-        if(loaded === totalFiles) finishLoading();
+        checkCompletion();
         return;
       }
+      imageCount++;
       const reader = new FileReader();
       reader.onload = function(e){
         arr.push(e.target.result);
         loaded++;
-        if(loaded === totalFiles){
-          finishLoading();
-        }
+        checkCompletion();
       };
       reader.readAsDataURL(f);
     });
     
+    function checkCompletion(){
+      if(loaded === totalFiles){
+        finishLoading();
+      }
+    }
+    
     function finishLoading(){
+      if(arr.length === 0) return; // No valid images processed
       const combined = existing.concat(arr);
       writeStorage(id, combined);
       renderThumbs(li, combined);

@@ -285,6 +285,9 @@ function renderCart(){
   const itemsEl = document.getElementById('cartItems');
   const cart = getCart();
   
+  // Clear first to ensure consistent state
+  itemsEl.innerHTML = '';
+  
   if(cart.length===0){
     itemsEl.innerHTML = '<p>Your cart is empty.</p>';
     document.getElementById('cartSubtotal').textContent = naira(0);
@@ -309,7 +312,6 @@ function renderCart(){
       `;
       fragment.appendChild(row);
     });
-    itemsEl.innerHTML = '';
     itemsEl.appendChild(fragment);
     
     // Update subtotal
